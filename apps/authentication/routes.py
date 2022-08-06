@@ -13,7 +13,7 @@ from flask_login import (
 from apps import db, login_manager
 from apps.authentication import blueprint
 from apps.authentication.forms import LoginForm, CreateAccountForm
-from apps.authentication.models import Users
+from apps.authentication.models import Login
 
 from apps.authentication.util import verify_pass
 
@@ -34,11 +34,13 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
+        print(username, password)
+
         # Locate user
-        user = Users.query.filter_by(username=username).first()
+        user = Login.query.filter_by(Login_username=username).first()
 
         # Check the password
-        if user and verify_pass(password, user.password):
+        if user and verify_pass(password, user.Login_password) and user.Login_rank == 'admin':
 
             login_user(user)
             return redirect(url_for('authentication_blueprint.route_default'))
@@ -63,7 +65,7 @@ def register():
         email = request.form['email']
 
         # Check usename exists
-        user = Users.query.filter_by(username=username).first()
+        user = Login.query.filter_by(Login_username=username).first()
         if user:
             return render_template('accounts/register.html',
                                    msg='Username already registered',
@@ -71,7 +73,7 @@ def register():
                                    form=create_account_form)
 
         # Check email exists
-        user = Users.query.filter_by(email=email).first()
+        user = Login.query.filter_by(login_username=email).first()
         if user:
             return render_template('accounts/register.html',
                                    msg='Email already registered',
@@ -79,7 +81,7 @@ def register():
                                    form=create_account_form)
 
         # else we can create the user
-        user = Users(**request.form)
+        user = Login(**request.form)
         db.session.add(user)
         db.session.commit()
 

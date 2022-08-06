@@ -5,8 +5,8 @@ Copyright (c) 2019 - present AppSeed.us
 
 import os
 
-class Config(object):
 
+class Config(object):
     basedir = os.path.abspath(os.path.dirname(__file__))
 
     # Set up the App SECRET_KEY
@@ -15,11 +15,12 @@ class Config(object):
 
     # This will create a file in <app> FOLDER
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
-    SQLALCHEMY_TRACK_MODIFICATIONS = False 
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Assets Management
-    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')    
-    
+    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
+
+
 class ProductionConfig(Config):
     DEBUG = False
 
@@ -30,13 +31,14 @@ class ProductionConfig(Config):
 
     # PostgreSQL database
     SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
-        os.getenv('DB_ENGINE'   , 'mysql'),
-        os.getenv('DB_USERNAME' , 'appseed_db_usr'),
-        os.getenv('DB_PASS'     , 'pass'),
-        os.getenv('DB_HOST'     , 'localhost'),
-        os.getenv('DB_PORT'     , 3306),
-        os.getenv('DB_NAME'     , 'appseed_db')
+        os.getenv('DB_ENGINE', 'mysql+pymysql'),
+        os.getenv('DB_USERNAME', 'root'),
+        os.getenv('DB_PASS', 'root'),
+        os.getenv('DB_HOST', 'localhost'),
+        os.getenv('DB_PORT', 3306),
+        os.getenv('DB_NAME', 'parking')
     )
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DebugConfig(Config):
@@ -46,5 +48,5 @@ class DebugConfig(Config):
 # Load all possible configurations
 config_dict = {
     'Production': ProductionConfig,
-    'Debug'     : DebugConfig
+    'Debug': DebugConfig
 }
