@@ -37,15 +37,21 @@
                 <div class="card-body">
                     <div class="row mb-4">
 
-                        <form action="" type="POST">
+                        <form action="" method="POST">
                             <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                       placeholder="name@example.com">
+                                <label for="parking_id" class="form-label">Parking ID</label>
+                                <input type="text" class="form-control" id="parking_id" placeholder="Parking ID" name="parking_id" required>
                             </div>
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label for="code" class="form-label">Parking code</label>
+                                <input type="text" class="form-control" placeholder="Parking code" id="code" name="code" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Parking address</label>
+                                <textarea class="form-control" id="address" placeholder="Address" name="address" required rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Add Parking</button>
                             </div>
                         </form>
 

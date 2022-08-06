@@ -1,6 +1,4 @@
-import pdfkit
 from jinja2 import TemplateNotFound
-
 from apps import db
 from apps.reports import blueprint
 from flask import render_template, request, url_for, redirect
@@ -33,9 +31,9 @@ def get_parking():
 
 @blueprint.route('/add_parking', methods=['GET', 'POST'])
 @login_required
-def create():
+def add_parking():
     if request.method == 'GET':
-        return render_template('home/add_parking.html', segment='add_parking')
+        return render_template('home/add_parking.html', segment='parking')
 
     if request.method == 'POST':
         parking_id = request.form['parking_id']
